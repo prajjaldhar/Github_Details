@@ -3,6 +3,7 @@ import "./CardComponent.css";
 
 const CardComponent = () => {
   const [datas, setdatas] = useState([]);
+  const [inputdata, setinputdata] = useState("");
   //fetch data
   let username = "khemchandsaini365";
   useEffect(() => {
@@ -25,11 +26,19 @@ const CardComponent = () => {
     fetchdata();
   }, []);
 
+  const handleInputClick = (e) => {
+   
+  };
+
   return (
     <div className="card-container">
       <div className="search-bar">
-        <input type="text" placeholder="Search..." />
-        <i className="fa fa-search"></i>
+        <input
+          onChange={handleInputClick}
+          type="text"
+          placeholder="Enter username"
+        />
+        <i on className="fa fa-search"></i>
       </div>
       <div className="cards">
         <div className="cover-photo">
