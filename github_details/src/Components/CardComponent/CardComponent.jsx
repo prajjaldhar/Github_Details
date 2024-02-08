@@ -27,6 +27,10 @@ const CardComponent = () => {
 
   return (
     <div className="card-container">
+      <div className="search-bar">
+        <input type="text" placeholder="Search..." />
+        <i className="fa fa-search"></i>
+      </div>
       <div className="cards">
         <div className="cover-photo">
           <img src={datas.avatar_url} className="profile" />

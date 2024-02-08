@@ -7,6 +7,33 @@
     color: #b3afbf;
 }
 
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background-color: none;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 40rem;
+    color: white;
+    flex: 1;
+    background: transparent;
+}
+
+.search-bar i {
+    padding: 8px;
+    cursor: pointer;
+}
+
+
 .cards {
     padding: 15px;
     width: 350px;
