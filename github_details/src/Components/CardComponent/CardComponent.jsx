@@ -2,59 +2,77 @@ import React, { useEffect, useState } from "react";
 import "./CardComponent.css";
 
 const CardComponent = () => {
-  const [datas, setdatas] = useState([]);
-  const [inputdata, setinputdata] = useState("");
-  //fetch data
-  let username = "khemchandsaini365";
+  const [datas, setDatas] = useState(null); // Change initial state to null
+  const [inputData, setInputData] = useState("");
+  const [username, setUsername] = useState("");
+
   useEffect(() => {
-    const fetchdata = async () => {
+    const fetchData = async () => {
       try {
         const res = await fetch(`https://api.github.com/users/${username}`);
-        console.log(res);
         if (!res.ok) {
           throw new Error(res.status);
         }
-        console.log(res);
-        const aakar = await res.json();
-        console.log(aakar);
-        setdatas(aakar);
-        console.log(datas);
+        const data = await res.json();
+        setDatas(data);
       } catch (err) {
         console.log(`Error: ${err}(internal server error)`);
       }
     };
-    fetchdata();
-  }, []);
 
-  const handleInputClick = (e) => {
-   
+    if (username) {
+      fetchData();
+    }
+  }, [username]);
+
+  const handleInputChange = (e) => {
+    setInputData(e.target.value);
+  };
+
+  const handleSearchClick = () => {
+    setUsername(inputData);
+    setInputData("");
   };
 
   return (
     <div className="card-container">
       <div className="search-bar">
         <input
-          onChange={handleInputClick}
+          onChange={handleInputChange}
           type="text"
+          value={inputData}
           placeholder="Enter username"
         />
-        <i on className="fa fa-search"></i>
+        <button className="button-search" onClick={handleSearchClick}>
+          <i className="fa fa-search"></i>
+        </button>
       </div>
-      <div className="cards">
-        <div className="cover-photo">
-          <img src={datas.avatar_url} className="profile" />
+
+      {datas !== null ? ( // Change condition to check for null
+        <div className="cards">
+          <div className="cover-photo">
+            <img src={datas.avatar_url} className="profile" alt="User Avatar" />
+          </div>
+          <h3 className="profile-name">{datas.name}</h3>
+          <p className="about">{datas.bio}</p>
+          <button className="btn">Followers: {datas.followers}</button>
+          <button className="btn">Following: {datas.following}</button>
+          <div className="icons">
+            <i className="fa-brands fa-linkedin" />
+            <i className="fa-brands fa-github" />
+            <i className="fa-brands fa-youtube" />
+            <i className="fa-brands fa-twitter" />
+          </div>
         </div>
-        <h3 className="profile-name">{datas.name}</h3>
-        <p className="about">{datas.bio}</p>
-        <button className="btn">Followers: {datas.followers}</button>
-        <button className="btn">Following: {datas.following}</button>
-        <div className="icons">
-          <i className="fa-brands fa-linkedin" />
-          <i className="fa-brands fa-github" />
-          <i className="fa-brands fa-youtube" />
-          <i className="fa-brands fa-twitter" />
+      ) : (
+        // Display loading GIF when datas is null
+        <div>
+          <img
+            src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/b6e0b072897469.5bf6e79950d23.gif"
+            alt="Loading..."
+          />
         </div>
-      </div>
+      )}
     </div>
   );
 };

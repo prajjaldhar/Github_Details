@@ -33,6 +33,14 @@
     cursor: pointer;
 }
 
+.button-search {
+    background: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
 
 .cards {
     padding: 15px;
